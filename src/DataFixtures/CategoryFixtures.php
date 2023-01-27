@@ -12,7 +12,7 @@ class CategoryFixtures extends Fixture
     {
         $category = new Category();
         $category->setName('Clothes');
-        $category->setPriceBySize(null);
+        $category->setPriceBySize(false);
         $manager->persist($category);
 
         $category2 = new Category();

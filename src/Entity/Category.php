@@ -38,9 +38,9 @@ class Category
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Item::class)]
     private Collection $items;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(nullable: false)]
     #[Groups(['category:list', 'category:item'])]
-    private ?bool $priceBySize = null;
+    private ?bool $priceBySize = true;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Size::class)]
     private Collection $sizes;
