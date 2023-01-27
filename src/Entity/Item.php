@@ -6,8 +6,11 @@ use App\Repository\ItemRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
+
 
 #[ORM\Entity(repositoryClass: ItemRepository::class)]
+#[UniqueConstraint(name: "unique_item_idx", columns: ["name","category_id"])]
 class Item
 {
     #[ORM\Id]

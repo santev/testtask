@@ -6,8 +6,12 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
+
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
+#[UniqueConstraint(name: "unique_category_idx", columns: ["name"])]
+
 class Category
 {
     #[ORM\Id]
@@ -24,9 +28,13 @@ class Category
     #[ORM\Column(nullable: true)]
     private ?bool $priceBySize = null;
 
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Size::class)]
+    private Collection $sizes;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
+        $this->sizes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -84,6 +92,36 @@ class Category
     public function setPriceBySize(?bool $priceBySize): self
     {
         $this->priceBySize = $priceBySize;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Size>
+     */
+    public function getSizes(): Collection
+    {
+        return $this->sizes;
+    }
+
+    public function addSize(Size $size): self
+    {
+        if (!$this->sizes->contains($size)) {
+            $this->sizes->add($size);
+            $size->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSize(Size $size): self
+    {
+        if ($this->sizes->removeElement($size)) {
+            // set the owning side to null (unless already changed)
+            if ($size->getCategory() === $this) {
+                $size->setCategory(null);
+            }
+        }
 
         return $this;
     }

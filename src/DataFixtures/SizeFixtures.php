@@ -11,38 +11,44 @@ class SizeFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
 
+
         for ($i = 0; $i < 30; $i++) {
 
-            $size = new Size();
-
-            switch (mt_rand(0, 2)) {
-                case '0':
+            switch ($i) {
+                case ($i % 2):
                     $code_arr = ['M', 'S', 'L', 'XS', 'XL', 'XXL', 'XXL'];
                     $size = new Size();
                     $size->setType('size');
                     $size->setValue($code_arr[array_rand($code_arr)]);
+                    $size->setCategory($this->getReference('category_1'));
                     $manager->persist($size);
                     break;
-                case '1':
+
+                case ($i % 3):
                     $vol_arr = ['ml', 'L', 'pint', 'quart', 'gal'];
                     $num_arr = ['0,1', '0,33', '0,5', '0,75', '1', '1,5'];
-                    $size->setType($vol_arr[array_rand($vol_arr)]);
-                    $size->setValue($num_arr[array_rand($num_arr)]);
-                    $manager->persist($size);
+                    $size2 = new Size();
+                    $size2->setType($vol_arr[array_rand($vol_arr)]);
+                    $size2->setValue($num_arr[array_rand($num_arr)]);
+                    $size2->setCategory($this->getReference('category_2'));
+                    $manager->persist($size2);
                     break;
-                case '2':
-                    $jew_arr = ['mm', 'cm', 'ct', 'qt', 'gr', 'gm'];
-                    $size = new Size();
-                    $size->setType($jew_arr[array_rand($jew_arr)]);
-                    $size->setValue($i);
-                    $manager->persist($size);
-                    break;
-                default:
-                    # code...
+
+                case ($i % 4):
+                    $jew_arr = ['mm', 'cm', 'ct', 'gr', 'gm'];
+                    $size3 = new Size();
+                    $size3->setType($jew_arr[array_rand($jew_arr)]);
+                    $size3->setValue($i);
+                    $size3->setCategory($this->getReference('category_3'));
+                    $manager->persist($size3);
                     break;
             }
         }
 
         $manager->flush();
+
+        $this->addReference('size_1', $size);
+        $this->addReference('size_2', $size2);
+        $this->addReference('size_3', $size3);
     }
 }

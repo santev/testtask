@@ -23,5 +23,9 @@ class CurrencyFixtures extends Fixture
         $manager->persist($Currency3);
 
         $manager->flush();
+
+        $this->addReference('currency_1', $Currency);
+        $this->addReference('currency_2', $Currency2);
+        $this->addReference('currency_3', $Currency3);
     }
 }

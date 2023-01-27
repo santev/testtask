@@ -4,8 +4,11 @@ namespace App\Entity;
 
 use App\Repository\CurrencyRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 #[ORM\Entity(repositoryClass: CurrencyRepository::class)]
+#[UniqueConstraint(name: "unique_currency_idx", columns: ["name"])]
+
 class Currency
 {
     #[ORM\Id]
