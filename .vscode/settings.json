@@ -1,0 +1,15 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 52959,
+            "driver": "PostgreSQL",
+            "name": "testtask-database-1",
+            "group": "postgre",
+            "database": "app",
+            "username": "app",
+            "password": "!ChangeMe!"
+        }
+    ]
+}
