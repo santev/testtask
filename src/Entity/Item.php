@@ -2,23 +2,37 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+
 use App\Repository\ItemRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ItemRepository::class)]
 #[UniqueConstraint(name: "unique_item_idx", columns: ["name","category_id"])]
+#[ApiResource(
+    operations: [
+        new Get(normalizationContext: ['groups' => 'item:item']),
+        new GetCollection(normalizationContext: ['groups' => 'item:list'])
+    ],
+    paginationEnabled: false,
+)]
 class Item
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['item:list', 'item:item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['item:list', 'item:item'])]
     private ?string $name = null;
 
     #[ORM\ManyToOne(inversedBy: 'items')]

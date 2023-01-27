@@ -2,30 +2,44 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[UniqueConstraint(name: "unique_category_idx", columns: ["name"])]
-
+#[ApiResource(
+    operations: [
+        new Get(normalizationContext: ['groups' => 'category:item']),
+        new GetCollection(normalizationContext: ['groups' => 'category:list'])
+    ],
+    paginationEnabled: false,
+)]
 class Category
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['category:list', 'category:item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['category:list', 'category:item'])]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Item::class)]
     private Collection $items;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['category:list', 'category:item'])]
     private ?bool $priceBySize = null;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Size::class)]

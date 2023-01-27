@@ -2,26 +2,41 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+
 use App\Repository\SizeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 
+use Symfony\Component\Serializer\Annotation\Groups;
+
 #[ORM\Entity(repositoryClass: SizeRepository::class)]
 #[UniqueConstraint(name: "unique_size_idx", columns: ["type","value","category_id"])]
-
+#[ApiResource(
+    operations: [
+        new Get(normalizationContext: ['groups' => 'size:item']),
+        new GetCollection(normalizationContext: ['groups' => 'size:list'])
+    ],
+    paginationEnabled: false,
+)]
 class Size
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['size:list', 'size:item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['size:list', 'size:item'])]
     private ?string $type = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['size:list', 'size:item'])]
     private ?string $value = null;
 
     #[ORM\OneToMany(mappedBy: 'size', targetEntity: Price::class)]
