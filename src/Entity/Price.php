@@ -2,29 +2,30 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\GetCollection;
-
 use App\Repository\PriceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ORM\Entity(repositoryClass: PriceRepository::class)]
 #[ApiResource(
     operations: [
-        new Get(normalizationContext: ['groups' => 'price:item']),
-        new GetCollection(normalizationContext: ['groups' => 'price:list'])
-    ],
-    paginationEnabled: false,
+    new Get(normalizationContext: ['groups' => 'price:item']),
+    new GetCollection(normalizationContext: ['groups' => 'price:list'])
+],
+paginationEnabled: false,
 )]
+#[Post]
+
+#[ORM\Entity(repositoryClass: PriceRepository::class)]
 class Price
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Id, ORM\GeneratedValue('IDENTITY'), ORM\Column]
     #[Groups(['price:list', 'price:item'])]
     private ?int $id = null;
 
@@ -32,15 +33,16 @@ class Price
     #[Groups(['price:list', 'price:item'])]
     private ?string $value = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne, ORM\JoinColumn(nullable: false)]
+    #[Groups(['price:list', 'price:item'])]
     private ?Currency $currency = null;
 
-    #[ORM\ManyToOne(inversedBy: 'prices')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'prices'), ORM\JoinColumn(nullable: false)]
+    #[Groups(['price:list', 'price:item'])]
     private ?Item $item = null;
 
     #[ORM\ManyToOne(inversedBy: 'prices')]
+    #[Groups(['price:list', 'price:item'])]
     private ?Size $size = null;
 
     public function getId(): ?int

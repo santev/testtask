@@ -25,9 +25,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class Category
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Id, ORM\GeneratedValue('IDENTITY'), ORM\Column]
     #[Groups(['category:list', 'category:item'])]
     private ?int $id = null;
 
@@ -43,6 +41,7 @@ class Category
     private ?bool $priceBySize = true;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Size::class)]
+    #[Groups(['category:list', 'category:item'])]
     private Collection $sizes;
 
     public function __construct()

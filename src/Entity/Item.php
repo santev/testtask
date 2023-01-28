@@ -25,9 +25,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class Item
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Id, ORM\GeneratedValue('IDENTITY'), ORM\Column]
     #[Groups(['item:list', 'item:item'])]
     private ?int $id = null;
 
@@ -35,11 +33,12 @@ class Item
     #[Groups(['item:list', 'item:item'])]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'items')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'items'), ORM\JoinColumn(nullable: false)]
+    #[Groups(['category:list', 'category:item'])]
     private ?Category $category = null;
 
     #[ORM\OneToMany(mappedBy: 'item', targetEntity: Price::class, orphanRemoval: true)]
+    #[Groups(['category:list', 'category:item'])]
     private Collection $prices;
 
     public function __construct()

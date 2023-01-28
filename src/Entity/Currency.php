@@ -24,7 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Currency
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue('IDENTITY')]
     #[ORM\Column]
     #[Groups(['currency:list', 'currency:item'])]
     private ?int $id = null;

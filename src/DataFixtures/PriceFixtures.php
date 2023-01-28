@@ -23,14 +23,14 @@ class PriceFixtures extends Fixture
             $price2->setValue(mt_rand(0, 100) . '.00');
             $price2->setCurrency($this->getReference('currency_2'));
             $price2->setItem($this->getReference('item_1'));
-            //$price2->setSize($this->getReference('size_1'));
+            //$price2->setSize($this->getReference('size_2'));
             $manager->persist($price2);
 
             $price3 = new Price();
             $price3->setValue(mt_rand(0, 100) . '.00');
             $price3->setCurrency($this->getReference('currency_3'));
             $price3->setItem($this->getReference('item_1'));
-            //$price3->setSize($this->getReference('size_1'));
+            //$price3->setSize($this->getReference('size_3'));
             $manager->persist($price3);
 
         $manager->flush();

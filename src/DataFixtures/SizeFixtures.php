@@ -11,12 +11,18 @@ class SizeFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
 
+        $code_arr = ['M', 'S', 'L', 'XS', 'XL', 'XXL', 'XXL'];
 
-        for ($i = 0; $i < 30; $i++) {
+        $vol_arr = ['ml', 'L', 'pint', 'quart', 'gal'];
+        $num_arr = ['0,1', '0,33', '0,5', '0,75', '1', '1,5'];
+
+        $jew_arr = ['mm', 'cm', 'ct', 'gr', 'gm'];
+
+
+        for ($i = 0; $i < 10; $i++) {
 
             switch ($i) {
                 case ($i % 2):
-                    $code_arr = ['M', 'S', 'L', 'XS', 'XL', 'XXL', 'XXL'];
                     $size = new Size();
                     $size->setType('size');
                     $size->setValue($code_arr[array_rand($code_arr)]);
@@ -25,8 +31,6 @@ class SizeFixtures extends Fixture
                     break;
 
                 case ($i % 3):
-                    $vol_arr = ['ml', 'L', 'pint', 'quart', 'gal'];
-                    $num_arr = ['0,1', '0,33', '0,5', '0,75', '1', '1,5'];
                     $size2 = new Size();
                     $size2->setType($vol_arr[array_rand($vol_arr)]);
                     $size2->setValue($num_arr[array_rand($num_arr)]);
@@ -34,8 +38,7 @@ class SizeFixtures extends Fixture
                     $manager->persist($size2);
                     break;
 
-                case ($i % 4):
-                    $jew_arr = ['mm', 'cm', 'ct', 'gr', 'gm'];
+                case ($i % 5):
                     $size3 = new Size();
                     $size3->setType($jew_arr[array_rand($jew_arr)]);
                     $size3->setValue($i);

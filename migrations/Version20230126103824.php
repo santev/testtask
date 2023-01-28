@@ -20,11 +20,11 @@ final class Version20230126103824 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE SEQUENCE category_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE currency_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE item_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE size_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE test_entity_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        // $this->addSql('CREATE SEQUENCE category_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        // $this->addSql('CREATE SEQUENCE currency_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        // $this->addSql('CREATE SEQUENCE item_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        // $this->addSql('CREATE SEQUENCE size_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        // $this->addSql('CREATE SEQUENCE test_entity_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE TABLE category (id INT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE currency (id INT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE item (id INT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
@@ -48,11 +48,11 @@ final class Version20230126103824 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SCHEMA public');
-        $this->addSql('DROP SEQUENCE category_id_seq CASCADE');
-        $this->addSql('DROP SEQUENCE currency_id_seq CASCADE');
-        $this->addSql('DROP SEQUENCE item_id_seq CASCADE');
-        $this->addSql('DROP SEQUENCE size_id_seq CASCADE');
-        $this->addSql('DROP SEQUENCE test_entity_id_seq CASCADE');
+        // $this->addSql('DROP SEQUENCE category_id_seq CASCADE');
+        // $this->addSql('DROP SEQUENCE currency_id_seq CASCADE');
+        // $this->addSql('DROP SEQUENCE item_id_seq CASCADE');
+        // $this->addSql('DROP SEQUENCE size_id_seq CASCADE');
+        // $this->addSql('DROP SEQUENCE test_entity_id_seq CASCADE');
         $this->addSql('DROP TABLE category');
         $this->addSql('DROP TABLE currency');
         $this->addSql('DROP TABLE item');
