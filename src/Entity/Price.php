@@ -5,22 +5,22 @@ namespace App\Entity;
 use App\Repository\PriceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Post;
 
 use Symfony\Component\Serializer\Annotation\Groups;
 
+#[UniqueConstraint(name: "unique_price_idx", columns: ["item_id", "currency_id", "size_id"])]
 #[ApiResource(
     operations: [
-    new Get(normalizationContext: ['groups' => 'price:item']),
-    new GetCollection(normalizationContext: ['groups' => 'price:list'])
-],
-paginationEnabled: false,
+        new Get(normalizationContext: ['groups' => 'price:item']),
+        new GetCollection(normalizationContext: ['groups' => 'price:list'])
+    ],
+    paginationEnabled: false,
 )]
-#[Post]
 
 #[ORM\Entity(repositoryClass: PriceRepository::class)]
 class Price
