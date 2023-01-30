@@ -10,7 +10,7 @@ Setup:
 6) POST data 
 
 curl -X 'POST' \
-  'https://localhost:8000/api/items/11/setprice' \
+  'https://localhost:8000/api/items/{item_id}/setprice' \
   -H 'accept: application/ld+json' \
   -H 'Content-Type: application/ld+json' \
   -d '{
