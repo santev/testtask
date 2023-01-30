@@ -2,3 +2,10 @@ api_platform:
     resource: .
     type: api_platform
     prefix: /api
+item_setprice:
+    path: /items/{id}/setprice
+    methods: ['POST']
+    defaults:
+        _controller: App\Controller\ItemController::setupPrice
+        _api_resource_class: App\Entity\Item
+        _api_operation_name: item_setprice

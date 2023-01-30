@@ -38,12 +38,12 @@ class Size
     private ?string $value = null;
 
     #[ORM\OneToMany(mappedBy: 'size', targetEntity: Price::class)]
-    #[Groups(['category:list', 'category:item'])]
+    #[Groups(['size:list', 'size:item'])]
     private Collection $prices;
 
     #[ORM\ManyToOne(inversedBy: 'sizes')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['category:list', 'category:item'])]
+    #[Groups(['size:list', 'size:item'])]
     private ?Category $category = null;
 
     public function __construct()
